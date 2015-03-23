@@ -6,7 +6,7 @@ import (
   "fmt"
   )
 
-		func queryLights() {
+		func main() {
 			db, err := sql.Open("mysql", "root:SOMEPASSWORD@tcp(127.0.0.1:3306)/app")
 	  if err != nil {
 	  panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
