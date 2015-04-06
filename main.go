@@ -1,17 +1,16 @@
 package main
+
 import (
-"flag"
-"log"
-"net/http"
-"strconv"
+	"fmt"
+	"net/http"
+	"os"
 )
-var port = flag.Int("port", 8080, "web service port")
+
 func main() {
-flag.Parse()
-r := NewLoggedRouter()
-err := http.ListenAndServe(":"+strconv.Itoa(*port), r)
-if err != nil {
-log.Fatal(err)
-}
-log.Fatal("The server returned without error.")
+	fmt.Println("listening...")
+	r := NewLoggedRouter()
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), r)
+	if err != nil {
+		panic(err)
+	}
 }
