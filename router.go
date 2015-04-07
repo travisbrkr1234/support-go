@@ -9,6 +9,7 @@ import (
 
 // NewLoggedRouter returns a gorilla/mux router with logging and all routes
 // defined for the webservice
+
 func NewLoggedRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true) // "/path" and "/path/" will be viewed as the same path
 	for _, r := range getRoutes() {
@@ -33,12 +34,17 @@ type route struct {
 func getRoutes() []route {
 	return []route{
 		route{
-			"StatusUpdate",
+			"CurrentStatus",
 			"GET",
 			"/statuses",
+			CurrentStatus,
+		},
+		route{
+			"StatusUpdate",
+			"GET",
+			"/statuses/{queue}",
 			StatusUpdate,
 		},
-
 	}
 }
 func logger(inner http.Handler, name string) http.Handler {

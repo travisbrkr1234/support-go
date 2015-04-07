@@ -6,8 +6,9 @@ import (
 	"net/http"
 )
 
+// CurrentStatus gets current light status for all queues
 // StatusUpdate updates light status based on radio button click
-func StatusUpdate(w http.ResponseWriter, r *http.Request) {
+func CurrentStatus(w http.ResponseWriter, r *http.Request) {
 	json, err := json.Marshal(getStubbedStatus())
 	if err != nil {
 		handleInternalServerError(w, err)
@@ -23,7 +24,7 @@ func getStubbedStatus() Status {
 		queue  string
 		status string
 	)
-	rows, err := DB.Query("select * from light_status where id = ?", 5)
+	rows, err := DB.Query("select * from light_status where id = ?", 7)
 	if err != nil {
 		panic("Failed to Login")
 	}
