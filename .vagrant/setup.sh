@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 echo "Installing mysql server"
-apt-get install mysql-server --assume-yes > /dev/null
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
+sudo apt-get -y install mysql-server
 
 # Setup mysql user and database for vagrant user
 
@@ -31,3 +33,9 @@ cat <<PROFILE >> ~vagrant/.profile
 # Change directory to project
 cd \$GOPATH/src/github.com/travisbrkr1234/support-go
 PROFILE
+
+#mysql
+#go
+#git
+#sql scripts
+#shell configs

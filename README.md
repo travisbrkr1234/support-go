@@ -19,12 +19,20 @@ Run
 ```
 $ vagrant ssh
 ```
-to connect to your provisioned box, once there cd into the top level director of this project and
+to connect to your provisioned box. Once there,
+
 Run
 ```
 $ PORT=(pass your port here) go run *.go
 ```
+
 This should display the _"listening..."_ text.
+
 Visit your localhost with the port you chose to access this app
+
 /statuses - will show current queue status
+
 /statuses/?querystring - will show nothing in the browser but log the variable to the console window
+
+* mysql user: root
+* mysql password: password
