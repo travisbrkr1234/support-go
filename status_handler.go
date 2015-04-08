@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"github.com/gorilla/mux"
 )
 
 // CurrentStatus gets current light status for all queues
@@ -46,4 +47,9 @@ func getStubbedStatus() Status {
 		Queue:  queue,
 		Status: status,
 	}
+}
+
+func StatusUpdate(w http.ResponseWriter, r *http.Request) {
+	queue := mux.Vars(r)["/{queue}"]
+	w.Write([]byte(fmt.Sprintf(queue)))
 }
