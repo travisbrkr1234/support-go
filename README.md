@@ -26,6 +26,11 @@ Run
 $ PORT=(pass your port here) go run *.go
 ```
 
+You will also want to run
+```
+$ go get github.com/go-sql-driver/mysql && go get github.com/gorilla/mux
+```
+
 This should display the _"listening..."_ text.
 
 Visit your localhost with the port you chose to access this app

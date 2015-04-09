@@ -7,7 +7,7 @@ sudo apt-get -y install mysql-server
 
 # Setup mysql user and database for vagrant user
 
-echo "Install Go 1.4.2"
+echo "Installing Go 1.4.2"
 echo "Installing dependency: git"
 apt-get install git --assume-yes > /dev/null
 
@@ -34,8 +34,15 @@ cat <<PROFILE >> ~vagrant/.profile
 cd \$GOPATH/src/github.com/travisbrkr1234/support-go
 PROFILE
 
-#mysql
-#go
-#git
-#sql scripts
+# Not sure why this doesn't work, tried with su - vagrant -c as well
+# Install gorilla/mux
+#echo "Installing gorilla/mux"
+#go get github.com/gorilla/mux
+
+# Install go mysql driver
+#echo "Installing mysql driver"
+#go get github.com/go-sql-driver/mysql
+
+#sql create db scripts
+#install go dependencies
 #shell configs
