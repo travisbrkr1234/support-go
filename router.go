@@ -41,7 +41,7 @@ func getRoutes() []route {
 		},
 		route{
 			"StatusUpdate",
-			"GET", //this needs to be PUT
+			"PUT", //this needs to be PUT
 			"/statuses/{queue}",
 			StatusUpdate,
 		},

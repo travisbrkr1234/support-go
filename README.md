@@ -21,14 +21,14 @@ $ vagrant ssh
 ```
 to connect to your provisioned box. Once there,
 
+You will also want to install the mysql driver and gorilla/mux
+```
+$ go get github.com/go-sql-driver/mysql && go get github.com/gorilla/mux
+```
+
 Run
 ```
 $ PORT=(pass your port here) go run *.go
-```
-
-You will also want to run
-```
-$ go get github.com/go-sql-driver/mysql && go get github.com/gorilla/mux
 ```
 
 This should display the _"listening..."_ text.
