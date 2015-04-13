@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"github.com/gorilla/mux"
+//	"io"
+	"net/http"
+//	"strings"
 )
 
 // CurrentStatus gets current light status for all queues
@@ -50,10 +52,9 @@ func getStubbedStatus() Status {
 }
 
 func StatusUpdate(w http.ResponseWriter, r *http.Request) {
-	queue := mux.Vars(r)["queue"]
-	//w.Write([]byte(fmt.Sprintf(queue)))
-
-	status := Status{Queue: queue}
-  // Read body into struct with json.NewDecoder
-	fmt.Println(status.Status)
+		queue := mux.Vars(r)["queue"]
+		w.Write([]byte(fmt.Sprintf(queue)))
+		fmt.Println(queue)
+		status := json.NewDecoder(r io.Reader) *Decode
+		fmt.Printf("%s", status.Status)
 }
