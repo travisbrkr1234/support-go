@@ -13,12 +13,12 @@ func main() {
 	}
 	defer db.Close()
 
-	stmtUpd, err := db.Prepare("UPDATE light_status SET status = ?, WHERE queue = ?")
+	stmtUpd, err := db.Prepare("UPDATE light_status SET status = ? WHERE queue = ?")
 	if err != nil {
 		panic(err)
 	}
 
-	res, err := stmtUpd.Exec("test", 9)
+	res, err := stmtUpd.Exec("green", "phone")
 	if err != nil {
 		panic(err)
 	}
@@ -28,5 +28,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(affect)
+	fmt.Println("Result:",affect)
 }
