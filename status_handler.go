@@ -53,8 +53,14 @@ func getStubbedStatus() Status {
 
 func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 		queue := mux.Vars(r)["queue"]
-		w.Write([]byte(fmt.Sprintf(queue)))
+			//w.Write([]byte(fmt.Sprintf(queue)))
 		fmt.Println(queue)
-		status := json.NewDecoder(r io.Reader) *Decode
-		fmt.Printf("%s", status.Status)
+		var status Status
+		statusDecoder := json.NewDecoder(r.Body)
+		if err := statusDecoder.Decode(&status); err != nil {
+			fmt.Println("Unable to marshal json to Status")
+			return
+		}
+		status.Queue = queue
+		fmt.Printf("Status: %s\n", status.Status)
 }
