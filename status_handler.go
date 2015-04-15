@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-//	"io"
+	//	"io"
 	"net/http"
-//	"strings"
+	//	"strings"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // CurrentStatus gets current light status for all queues
@@ -52,15 +54,40 @@ func getStubbedStatus() Status {
 }
 
 func StatusUpdate(w http.ResponseWriter, r *http.Request) {
-		queue := mux.Vars(r)["queue"]
-			//w.Write([]byte(fmt.Sprintf(queue)))
-		fmt.Println(queue)
-		var status Status
-		statusDecoder := json.NewDecoder(r.Body)
-		if err := statusDecoder.Decode(&status); err != nil {
-			fmt.Println("Unable to marshal json to Status")
-			return
-		}
-		status.Queue = queue
-		fmt.Printf("Status: %s\n", status.Status)
+	//	DB.Exec("UPDATE light_status SET status = ? WHERE queue = ?")
+
+	queue := mux.Vars(r)["queue"]
+	//w.Write([]byte(fmt.Sprintf(queue)))
+	fmt.Println(queue)
+	var status Status
+	statusDecoder := json.NewDecoder(r.Body)
+	if err := statusDecoder.Decode(&status); err != nil {
+		fmt.Println("Unable to marshal json to Status")
+		return
+	}
+	status.Queue = queue
+	fmt.Printf("Status: %s\n", status.Status)
+	//	db.Exec("UPDATE light_status SET status = ?, WHERE queue = "phone"", input)
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/app")
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	stmtUpd, err := db.Prepare("UPDATE light_status SET status = ? WHERE queue = ?")
+	if err != nil {
+		panic(err)
+	}
+
+	res, err := stmtUpd.Exec(\"queue\", \"status\")
+	if err != nil {
+		panic(err)
+	}
+
+	affect, err := res.RowsAffected()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Result:", affect)
 }
