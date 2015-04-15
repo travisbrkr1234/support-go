@@ -52,7 +52,6 @@ func getStubbedStatus() Status {
 }
 
 func StatusUpdate(w http.ResponseWriter, r *http.Request) {
-	//	DB.Exec("UPDATE light_status SET status = ? WHERE queue = ?")
 
 	queue := mux.Vars(r)["queue"]
 	//w.Write([]byte(fmt.Sprintf(queue)))
@@ -65,7 +64,6 @@ func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	status.Queue = queue
 	fmt.Printf("Status: %s\n", status.Status)
-	//	db.Exec("UPDATE light_status SET status = ?, WHERE queue = "phone"", input)
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/app")
 	if err != nil {
 		panic(err)
