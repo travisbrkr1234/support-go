@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	//	"io"
 	"net/http"
-	//	"strings"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -79,7 +77,7 @@ func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	res, err := stmtUpd.Exec(\"queue\", \"status\")
+	res, err := stmtUpd.Exec(status.Status, status.Queue)
 	if err != nil {
 		panic(err)
 	}
