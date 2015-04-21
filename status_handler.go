@@ -1,18 +1,18 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"net/http"
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 // CurrentStatus gets current light status for all queues
 // StatusUpdate updates light status based on radio button click
 func CurrentStatus(w http.ResponseWriter, r *http.Request) {
-	json, err := json.Marshal(getStubbedStatus())
+	json, err := json.Marshal(getStubbedStatuses())
 	if err != nil {
 		handleInternalServerError(w, err)
 		return
@@ -21,22 +21,31 @@ func CurrentStatus(w http.ResponseWriter, r *http.Request) {
 	writeJsonResponse(w, json)
 }
 
-func getStubbedStatus() Status {
+func getStubbedStatuses() []Status {
 	var (
-		id     int
-		queue  string
-		status string
+		id    int
+		queue string
+		color string
 	)
 	rows, err := DB.Query("select * from light_status where id = ?", 7)
 	if err != nil {
 		panic("Failed to Login")
 	}
+	var status Status
+	statuses := []Status{}
+
 	defer rows.Close()
 	for rows.Next() {
-		err := rows.Scan(&id, &queue, &status)
+		err := rows.Scan(&id, &queue, &color)
 		if err != nil {
 			panic(err)
 		}
+		status = Status{
+			ID:     id,
+			Queue:  queue,
+			Status: color,
+		}
+		statuses = append(statuses, status)
 		fmt.Println(id, queue, status)
 	}
 	err = rows.Err()
@@ -44,11 +53,7 @@ func getStubbedStatus() Status {
 		panic(err)
 	}
 
-	return Status{
-		ID:     id,
-		Queue:  queue,
-		Status: status,
-	}
+	return statuses
 }
 
 func StatusUpdate(w http.ResponseWriter, r *http.Request) {
