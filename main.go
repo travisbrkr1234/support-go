@@ -11,10 +11,11 @@ import (
 )
 
 var DB *sql.DB
+var dbURL string
 
 func main() {
 	port := os.Getenv("PORT")
-	dbURL := os.Getenv("DATABASE_URL")
+	dbURL = os.Getenv("DATABASE_URL")
 	if len(dbURL) == 0 {
 		dbURL = "root:@tcp(127.0.0.1:3306)/app"
 	}

@@ -70,7 +70,7 @@ func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	status.Queue = queue
 	fmt.Printf("Status: %s\n", status.Status)
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/app")
+	db, err := sql.Open("mysql", dbURL)
 	if err != nil {
 		panic(err)
 	}
