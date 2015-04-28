@@ -22,7 +22,7 @@ func CurrentStatus(w http.ResponseWriter, r *http.Request) {
 	writeJsonResponse(w, json)
 }
 
-func getStubbedStatuses() []Status {
+func getStubbedStatuses() Statuses {
 	var (
 		id    int
 		queue string
@@ -33,7 +33,7 @@ func getStubbedStatuses() []Status {
 		panic("Failed to Login")
 	}
 	var status Status
-	statuses := []Status{}
+	statuses := Statuses{}
 
 	defer rows.Close()
 	for rows.Next() {
@@ -46,7 +46,7 @@ func getStubbedStatuses() []Status {
 			Queue:  queue,
 			Status: color,
 		}
-		statuses = append(statuses, status)
+		statuses.Data = append(statuses.Data, status)
 		fmt.Println(id, queue, status)
 	}
 	err = rows.Err()
@@ -92,4 +92,8 @@ func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Result:", affect)
+}
+
+type Statuses struct {
+	Data []Status `json:"data"`
 }
