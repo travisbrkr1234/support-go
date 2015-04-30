@@ -45,6 +45,12 @@ func getRoutes() []route {
 			"/statuses/{queue}",
 			StatusUpdate,
 		},
+		route{
+			"Cors",
+			"OPTIONS",
+			"/statuses/{queue}",
+			Cors,
+		},
 	}
 }
 func logger(inner http.Handler, name string) http.Handler {

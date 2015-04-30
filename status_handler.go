@@ -17,7 +17,6 @@ func CurrentStatus(w http.ResponseWriter, r *http.Request) {
 		handleInternalServerError(w, err)
 		return
 	}
-	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusCreated)
 	writeJsonResponse(w, json)
 }
@@ -58,7 +57,6 @@ func getStubbedStatuses() Statuses {
 }
 
 func StatusUpdate(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Access-Control-Allow-Origin", "*")
 	queue := mux.Vars(r)["queue"]
 	//w.Write([]byte(fmt.Sprintf(queue)))
 	fmt.Println(queue)
@@ -96,4 +94,11 @@ func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 
 type Statuses struct {
 	Data []Status `json:"data"`
+}
+
+func Cors(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Add("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS")
+	w.WriteHeader(http.StatusOK)
 }
