@@ -17,6 +17,7 @@ func CurrentStatus(w http.ResponseWriter, r *http.Request) {
 		handleInternalServerError(w, err)
 		return
 	}
+	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusCreated)
 	writeJsonResponse(w, json)
 }
@@ -99,6 +100,6 @@ type Statuses struct {
 func Cors(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Add("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS")
+	w.Header().Add("Access-Control-Allow-Methods", "PUT, OPTIONS")
 	w.WriteHeader(http.StatusOK)
 }
