@@ -28,7 +28,7 @@ func getStubbedStatuses() Statuses {
 		queue string
 		color string
 	)
-	rows, err := DB.Query("select * from light_status")
+	rows, err := DB.Query("select * from light_status order by id")
 	if err != nil {
 		panic("Failed to Login")
 	}
