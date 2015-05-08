@@ -35,6 +35,7 @@ func main() {
 func getDB(dbURL string) *sql.DB {
 	db, err := sql.Open("mysql", dbURL)
 	if err != nil {
+		log.Fatal("Unable to establish a DB connection with url ", dbURL)
 		log.Fatal(err)
 	}
 	return db
