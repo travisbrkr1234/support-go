@@ -1,0 +1,19 @@
+{
+	"ImportPath": "support-go",
+	"GoVersion": "go1.2.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.2-97-g0cc29e9",
+			"Rev": "0cc29e9fe8e25c2c58cf47bcab566e029bbaa88b"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Rev": "215affda49addc4c8ef7e2534915df2c8c35c6cd"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Rev": "94903de8c98a68d8b4483c529b26a5d146e386a2"
+		}
+	]
+}
