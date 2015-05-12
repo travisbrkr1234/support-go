@@ -1,1 +1,1 @@
-web: statusLight
+web: go run *.go
