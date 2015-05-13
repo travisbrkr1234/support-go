@@ -1,1 +1,1 @@
-web: support-go
+web: bin/support-go
